@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mtaaniapp'
 ]
 
 MIDDLEWARE = [
@@ -75,10 +76,12 @@ WSGI_APPLICATION = 'mtaaniproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mtaani',
+        'USER': 'postgres',
+        'PASSWORD':'mburu',
     }
-}
+}    
 
 
 # Password validation
