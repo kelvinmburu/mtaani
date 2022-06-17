@@ -7,3 +7,7 @@ def index(request):
         'context_text': text,
     }
     return render(request, 'mtaaniapp/index.html', context)
+
+def login(request):
+    context = {}
+    return render(request, 'mtaaniapp/login.html', context)
