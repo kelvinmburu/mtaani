@@ -7,9 +7,9 @@ A web application that allows users to be in the loop about everything happening
 # Django Admin Login
 To access the admin dashboard, follow the instructions below:
 
-* Navigate to `https://picstackone.herokuapp.com/admin`
-* Username: `test`
-* Password: `test#478`
+* Navigate to `https://mtaanih.herokuapp.com/dmin`
+* Username: ``
+* Password: ``
 
 ## Project Run-Through
 * A few details about this project:
