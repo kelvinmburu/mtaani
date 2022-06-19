@@ -41,10 +41,16 @@ INSTALLED_APPS = [
     'mtaaniapp',
     'tailwind',
     'theme',
-    'django_browser_reload'
+    'django_browser_reload',
+    'crispy_forms',
+    'crispy_tailwind',
 ]
 
 TAILWIND_APP_NAME = 'theme'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 INTERNAL_IPS = [
     "127.0.0.1",
