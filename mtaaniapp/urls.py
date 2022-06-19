@@ -6,6 +6,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('signup/', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
+     path('support/', views.support, name='support'),
     path('account/', include('django.contrib.auth.urls')),
     path('all_hoods/', views.hoods, name='hood'),
     path('new_hood/', views.create_hood, name='new_hood'),

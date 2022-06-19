@@ -42,6 +42,9 @@ def signup(request):
 def contact(request):
     return render(request, 'mtaaniapp/contact.html')
 
+def support(request):
+    return render(request, 'mtaaniapp/support.html')
+
 def logout_user(request):
     logout(request)
     return redirect('home')
