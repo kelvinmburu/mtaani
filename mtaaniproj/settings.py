@@ -56,6 +56,11 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+UPLOADCARE = {
+    'pub_key': '7d016febe1ddd01a0314',
+    'secret': '675b39973c176d900497',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
