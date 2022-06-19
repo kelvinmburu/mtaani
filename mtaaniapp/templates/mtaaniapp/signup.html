@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block body %}
 
@@ -10,7 +11,7 @@
                 <img src="{% static 'images/bg-mtaani.png' %}" class="w-8/12" alt="Sample image" />
             </div>
             <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-                <form>
+                <form method="post">
                     {% csrf_token %}
 
                     <div
