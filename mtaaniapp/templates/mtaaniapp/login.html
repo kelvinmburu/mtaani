@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% load static %}
+{% load tailwind_filters %}
 {% block body %}
 
 {% include 'nav.html' %}
@@ -11,28 +11,23 @@
                 <img src="{% static 'images/bg-mtaani.png' %}" class="w-8/12" alt="Sample image" />
             </div>
             <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-                <form method="post">
+                <div
+                    class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                    <p class="text-center font-semibold mx-4 mb-0">Sign In</p>
+                </div>
+                <form action="" method="post">
                     {% csrf_token %}
-
-                    <div
-                        class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                        <p class="text-center font-semibold mx-4 mb-0">Sign In</p>
-                    </div>
-
-                    <!-- Email input -->
+                    {{ form|crispy }}
                     <div class="mb-6">
                         <input type="text"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             id="exampleFormControlInput2" placeholder="Email address" />
                     </div>
-
-                    <!-- Password input -->
                     <div class="mb-6">
                         <input type="password"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             id="exampleFormControlInput2" placeholder="Password" />
                     </div>
-
                     <div class="flex justify-between items-center mb-6">
                         <div class="form-group form-check">
                             <input type="checkbox"
