@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import DateTimeField
 from pyuploadcare.dj.models import ImageField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -67,3 +68,10 @@ class Business(models.Model):
     @classmethod
     def search_business(cls, name):
         return cls.objects.filter(name__icontains=name).all()
+    
+class Post(models.Model):
+    title = models.CharField(max_length=120, null=True)
+    post = models.TextField()
+    date = DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
+    hood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='hood_post')
