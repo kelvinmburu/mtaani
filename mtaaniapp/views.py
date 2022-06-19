@@ -11,3 +11,7 @@ def index(request):
 def login(request):
     context = {}
     return render(request, 'mtaaniapp/login.html', context)
+
+def signup(request):
+    context = {}
+    return render(request, 'mtaaniapp/signup.html', context)
