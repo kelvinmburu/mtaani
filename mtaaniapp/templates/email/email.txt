@@ -1,0 +1,3 @@
+Hello {{username}}
+
+Welcome to Mtaani. We appreciate your presence in joining our valued neighborhood community platform.

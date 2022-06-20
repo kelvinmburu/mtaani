@@ -1,25 +1,105 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
-<div class="container">
-        <a href="{% url 'new-hood' %}" class="btn btn-sm btn-info mb-2"> New Hood</a>
-    <div class="row">
-        {% for hood in all_hoods %}
-        <div class="col-md-4">
-            <div class="card mb-4" style="min-height:340px">
-                <img src="{{ hood.hood_logo.url }}" class="card-img-top" alt="{{ hood.name }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ hood.name }}  ({{hood.location}}) <span class="ml-4">{{hood.members.count}} member{{hood.members.count|pluralize}}</span></h5>
-                    <p class="card-text">{{hood.description}}</p>
-                    {% if request.user.profile.neighbourhood == hood %}
-                    <a href="{% url 'leave-hood' hood.id %}" class="btn btn-outline-danger btn-sm">Leave Hood</a>
-                    {% elif not request.user.profile.neighbourhood %}
-                    <a href="{% url 'join-hood' hood.id %}" class="btn btn-primary btn-sm">Join Hood</a>
-                    {% endif %}
+{% load static %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+    <!--Nav-->
+    {% include 'navbar.html' %}
+    <section class="bg-white border-b py-12 mt-px-4">
+        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                Hoods
+            </h1>
+            <a href="{% url 'new_hood' %}">
+                <button
+                    class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    style="background-color: #de6262;">
+                    Add Hood
+                </button>
+            </a>
+            <div class="w-full mb-4">
+                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+            </div>
+            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
+                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                        <p class="w-full text-gray-600 text-xs md:text-sm px-6">
+                            Diverse Neighborhoods
+                        </p>
+                        <div class="w-full font-bold text-xl text-gray-800 px-6">
+                            Diverse Neighborhoods
+                        </div>
+                        <p class="text-gray-800 text-base px-6 mb-5">
+                            We provide a wide range of neighborhoods that are inclusive of all people from diverse
+                            backgrounds
+                        </p>
+                    </a>
+                </div>
+                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex items-center justify-start">
+                        <button
+                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                            style="background-color: #de6262;">
+                            Join
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
+                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                        <p class="w-full text-gray-600 text-xs md:text-sm px-6">
+                            Emergency Helplines
+                        </p>
+                        <div class="w-full font-bold text-xl text-gray-800 px-6">
+                            Emergency Helplines
+                        </div>
+                        <p class="text-gray-800 text-base px-6 mb-5">
+                            Want an emergency helpline? We have you covered. Browse through our helpline numbers
+                            so you never have to worry about anything when an emergency happens.
+                        </p>
+                    </a>
+                </div>
+                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex items-center justify-center">
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
+                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                        <p class="w-full text-gray-600 text-xs md:text-sm px-6">
+                            Neighborhood Updates
+                        </p>
+                        <div class="w-full font-bold text-xl text-gray-800 px-6">
+                            Neighborhood Updates
+                        </div>
+                        <p class="text-gray-800 text-base px-6 mb-5">
+                            Want to know what's happening in your neighborhood? Get all the information you need as it
+                            happens.
+                            Stay in the know!
+                        </p>
+                    </a>
+                </div>
+                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex items-center justify-end">
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
-</div>
+    </section>
+</body>
+
+</html>
+
 {% endblock %}

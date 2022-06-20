@@ -6,39 +6,60 @@ from django.contrib.auth.decorators import login_required
 from .models import NeighbourHood, Profile, Business, Post
 from .forms import UpdateProfileForm, NeighbourhoodForm, PostForm
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.mail import send_mail
+from .emails import send_welcome_email
 
 # Create your views here.
-def home(request):
-    context = {}
-    return render(request, 'mtaaniapp/index.html', context)
-
 
 def index(request):
+    page = 'login'
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User doesnt exist')
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             messages.success(request, "You are successfuly logged in")
-            return redirect('index')
-    return render(request, 'mtaaniapp/main.html')
+            return redirect('home')
+        else:
+            messages.error(request, 'Username or password doesnt exist')
+    context = {'page': page}
+    return render(request, 'mtaaniapp/auth.html', context)
 
 def signup(request):
+    form = SignupForm()
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('index')
-    else:
-        form = SignupForm()
-    return render(request, 'mtaaniapp/signup.html', {'form': form})
+            
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
 
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            recipient = User(username=username, email=email)
+            send_welcome_email(username, email)
+
+            profile = Profile.objects.create(user=user)
+            profile.save()
+            
+            page = 'register'
+            return render(request, 'mtaaniapp/success.html', {'page': page})
+    context = {'form': form}
+    return render(request, 'mtaaniapp/auth.html', context)
+
+def home(request):
+    context = {}
+    return render(request, 'mtaaniapp/index.html', context)
+    
 def contact(request):
     return render(request, 'mtaaniapp/contact.html')
 
@@ -49,23 +70,17 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+@login_required(login_url='login')
 def hoods(request):
     all_hoods = NeighbourHood.objects.all()
     all_hoods = all_hoods[::-1]
     params = {'all_hoods': all_hoods}
     return render(request, 'mtaaniapp/all_hoods.html', params)
 
+@login_required(login_url='login')
 def create_hood(request):
-    if request.method == 'POST':
-        form = NeighbourhoodForm(request.POST, request.FILES)
-        if form.is_valid():
-            hood = form.save(commit=False)
-            hood.admin = request.user.profile
-            hood.save()
-            return redirect('hood')
-        else:
-            form = NeighbourhoodForm()
-        return render(request, 'mtaaniapp/newhood.html', {'form': form})
+    context = {}
+    return render(request, 'mtaaniapp/newhood.html', context)
     
 def single_hood(request, hood_id):
     hood = NeighbourHood.objects.get(id=hood_id)
@@ -107,12 +122,14 @@ def create_post(request, hood_id):
         form = PostForm()
     return render(request, 'mtaaniapp/post.html', {'form': form})
 
+@login_required(login_url='login')
 def join_hood(request, id):
     neighbourhood = get_object_or_404(NeighbourHood, id=id)
     request.user.profile.neighbourhood = neighbourhood
     request.user.profile.save()
     return redirect('hood')
 
+@login_required(login_url='login')
 def leave_hood(request, id):
     hood = get_object_or_404(NeighbourHood, id=id)
     request.user.profile.neighbourhood = None
