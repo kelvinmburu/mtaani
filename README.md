@@ -8,8 +8,8 @@ A web application that allows users to be in the loop about everything happening
 To access the admin dashboard, follow the instructions below:
 
 * Navigate to `https://mtaanih.herokuapp.com/admin`
-* Username: ``
-* Password: ``
+* Username: `sumtaa`
+* Password: `muut&830`
 
 ## Project Run-Through
 * A few details about this project:
