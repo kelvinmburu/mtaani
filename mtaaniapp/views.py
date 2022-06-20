@@ -94,14 +94,14 @@ def single_hood(request, hood_id):
             b_form.neighbourhood = hood
             b_form.user = request.user.profile
             b_form.save()
-            return redirect('single_hood', hood.id)
+            return redirect('single-hood', hood.id)
     else:
         form = BusinessForm
         params = {
             'hood':hood,
             'business': business,
             'form': form,
-            'post': posts
+            'posts': posts
         }
         return render(request, 'mtaaniapp/single_hood.html', params)
     
@@ -117,7 +117,7 @@ def create_post(request, hood_id):
         post = form.save(commit=False)
         post.hood = hood
         post.user = request.user.profile
-        return redirect('single_hood', hood.id)
+        return redirect('single-hood', hood.id)
     else:
         form = PostForm()
     return render(request, 'mtaaniapp/post.html', {'form': form})
