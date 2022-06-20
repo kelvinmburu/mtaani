@@ -1,7 +1,9 @@
 <nav id="header" class="fixed w-full z-30 top-0 text-white">
-    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2" style="background: linear-gradient(90deg, #de6262 0%, #ffb88c 100%);">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2"
+        style="background: linear-gradient(90deg, #de6262 0%, #ffb88c 100%);">
         <div class="pl-4 flex items-center">
-            <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="{% url 'home' %}">
+            <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+                href="{% url 'home' %}">
                 <!--Icon from: http://www.potlabicons.com/ -->
                 Mtaani
             </a>
@@ -32,11 +34,24 @@
                 {% if request.user.is_authenticated%}
                 <li class="mr-3">
                     <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                        href="#">Profile</a>
+                        href="{% url 'profile' user.username %}">Profile</a>
                 </li>
+
+                {% if user.profile.neighbourhood %}
                 <li class="mr-3">
                     <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                        href="{% url 'hoods' %}">Hoods</a>
+                        href="{% url 'single-hood' user.profile.neighbourhood.id %}">{{user.profile.neighbourhood.name}}</a>
+                </li>
+                {% else %}
+                <li class="mr-3">
+                    <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                        href="">No Hood</a>
+                </li>
+                {% endif %}
+
+                <li class="mr-3">
+                    <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                        href="{% url 'hood' %}">Hoods</a>
                 </li>
                 <li class="mr-3">
                     <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"

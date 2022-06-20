@@ -15,7 +15,7 @@
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
     <!--Nav-->
     {% include 'navbar.html' %}
-    <section class="bg-white border-b py-12 mt-px-4">
+    <section class="bg-white border-b py-12">
         <div class="container mx-auto flex flex-wrap pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Hoods
@@ -30,71 +30,47 @@
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+
+            <div class="w-full md:w-1/3 p-4 flex flex-col flex-grow flex-shrink">
+                {% for hood in all_hoods %}
                 <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
                     <a href="#" class="flex flex-wrap no-underline hover:no-underline">
                         <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                            Diverse Neighborhoods
+                            {{hood.members.count}} member{{hood.members.count|pluralize}}
                         </p>
                         <div class="w-full font-bold text-xl text-gray-800 px-6">
-                            Diverse Neighborhoods
+                            {{ hood.name }} ({{hood.location}})
                         </div>
                         <p class="text-gray-800 text-base px-6 mb-5">
-                            We provide a wide range of neighborhoods that are inclusive of all people from diverse
-                            backgrounds
+                            {{hood.description}}
                         </p>
+                        <div class="rounded-lg">
+                            <img class="inline rounded-lg" src="{{ hood.hood_logo.url }}" alt="{{ hood.name }}" style="aspect-ratio: 1; width: 100px;">
+                        </div>
                     </a>
                 </div>
                 <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                     <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                            style="background-color: #de6262;">
-                            Join
-                        </button>
+                        {% if request.user.profile.neighbourhood == hood %}
+                        <a href="{% url 'leave-hood' hood.id %}">
+                            <button
+                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                style="background-color: #de6262;">
+                                Leave
+                            </button>
+                        </a>
+                        {% elif not request.user.profile.neighbourhood %}
+                        <a href="{% url 'join-hood' hood.id %}">
+                            <button
+                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                style="background-color: #de6262;">
+                                Join
+                            </button>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-                        <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                            Emergency Helplines
-                        </p>
-                        <div class="w-full font-bold text-xl text-gray-800 px-6">
-                            Emergency Helplines
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Want an emergency helpline? We have you covered. Browse through our helpline numbers
-                            so you never have to worry about anything when an emergency happens.
-                        </p>
-                    </a>
-                </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                    <div class="flex items-center justify-center">
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-2xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-                        <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                            Neighborhood Updates
-                        </p>
-                        <div class="w-full font-bold text-xl text-gray-800 px-6">
-                            Neighborhood Updates
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Want to know what's happening in your neighborhood? Get all the information you need as it
-                            happens.
-                            Stay in the know!
-                        </p>
-                    </a>
-                </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                    <div class="flex items-center justify-end">
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
