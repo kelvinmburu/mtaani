@@ -11,7 +11,7 @@ urlpatterns = [
     path('support/', views.support, name='support'),
     
     path('', views.home, name='home'),
-    path('all_hoods/', views.hoods, name='hoods'),
+    path('all_hoods/', views.hoods, name='hood'),
     path('new_hood/', views.create_hood, name='new_hood'),
     path('profile/<username>', views.profile, name='profile'),
     
