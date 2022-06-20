@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'mtaaniapp',
     'tailwind',
     'theme',
-    'django_browser_reload',
     'crispy_forms',
     'crispy_tailwind',
     'pyuploadcare.dj'
