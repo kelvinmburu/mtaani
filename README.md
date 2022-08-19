@@ -35,7 +35,7 @@ To access the admin dashboard, follow the instructions below:
 
 1. IDE of Choice
 2. Python3
-3. Browser
+3. Browser of choice (Safari, Chrome, Mozilla, Edge)
 
 * Please ensure you're working from a Windows/MacOS/Linux
 * Install Django through `pip install django`
